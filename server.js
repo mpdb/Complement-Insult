@@ -32,6 +32,35 @@ app.get("/complement", function(req, res) {
     .end();
 });
 
+const insults = [
+  "What a dog!",
+  "Oi fuckhead, rack off!",
+  "Fatty boom boom!",
+  "You suck!",
+  "Giving up already?",
+  "Your mumma so fat...",
+  "HAHA",
+  "Go home, ey",
+  "Poop"
+];
+
+function getRandomInsult() {
+  const randomIndex = Math.floor(Math.random() * insults.length);
+  return insults[randomIndex];
+}
+
+app.get("/", function(req, res) {
+  res.sendFile(path.join(__dirname, "index.html"));
+});
+
+app.get("/insult", function(req, res) {
+  res
+    .json({
+      insult: getRandomInsult()
+    })
+    .end();
+});
+
 app.use("/public", express.static("./public"));
 
 app.listen(3000);
